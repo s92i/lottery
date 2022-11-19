@@ -1,7 +1,7 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import Header from '../components/Header'
-import { useContract, useMetamask, useDisconnect, useAddress, useContractRead, useContractWrite } from '@thirdweb-dev/react'
+import { useContract, useAddress, useContractRead, useContractWrite } from '@thirdweb-dev/react'
 import Login from '../components/Login'
 import Loading from '../components/Loading'
 import { useState, useEffect } from 'react'
@@ -69,6 +69,7 @@ const Home: NextPage = () => {
       toast.success('Winnings withdrawn successfully!', {
         id: notification,
       })
+      console.info('Contract call success', data)
     } catch (err) {
       toast.error('Something went wrong', {
         id: notification,
@@ -76,10 +77,9 @@ const Home: NextPage = () => {
       console.error('Contract call failure', err)
     }
   }
-
-  if (isLoading) return <Loading />
-
+  
   if (!address) return <Login />
+  if (isLoading) return <Loading />
 
   return (
     <div className='bg-[#091B18] min-h-screen flex flex-col'>
